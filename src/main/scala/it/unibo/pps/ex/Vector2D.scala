@@ -25,8 +25,16 @@ trait Vector2D:
 
 object Vector2D:
 
-  case class Vector2DImpl(x: Double, y: Double)
-  type Vector2D = Vector2DImpl
+  private case class Vector2DImpl(x: Double, y: Double) extends Vector2D:
+    def +(other: Vector2D): Vector2D = Vector2DImpl(x + other.x, y + other.y)
+
+    def -(other: Vector2D): Vector2D = Vector2DImpl(x - other.x, y - other.y)
+
+    def *(scalar: Double): Vector2D = Vector2DImpl(scalar * x, scalar * y)
+
+    def dot(other: Vector2D): Double = x * other.x + y * other.y
+
+    def magnitude: Double = Math.sqrt(x * x + y * y)
   // Factory method to create Vector2D instances
   def apply(x: Double, y: Double): Vector2D = Vector2DImpl(x, y)
 
@@ -34,17 +42,6 @@ object Vector2D:
   val zero: Vector2D = apply(0.0, 0.0)
   val i: Vector2D = apply(1.0, 0.0) // Unit vector along x-axis
   val j: Vector2D = apply(0.0, 1.0) // Unit vector along y-axis
-
-  extension(vector: Vector2D)
-    def +(other: Vector2D): Vector2D = apply(vector.x + other.x, vector.y + other.y)
-
-    def -(other: Vector2D): Vector2D = apply(vector.x - other.x, vector.y - other.y)
-
-    def *(scalar: Double): Vector2D = apply(scalar * vector.x, scalar * vector.y)
-
-    def dot(other: Vector2D): Double = vector.x * other.x + vector.y * other.y
-
-    def magnitude: Double = Math.sqrt(vector.x * vector.x + vector.y * vector.y)
 
 /** Hints:
  *   - Implement Vector2D with a Vector2DImpl class.
