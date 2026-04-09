@@ -12,7 +12,7 @@ trait Course:
 
 object Course:
 
-  private case class CourseImpl( courseId: String,
+  private case class CourseImpl(courseId: String,
                                title: String,
                                instructor: String,
                                category: String
